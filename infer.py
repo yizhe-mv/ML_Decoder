@@ -45,6 +45,9 @@ def main():
 
     # Setup model
     print("creating model {}...".format(args.model_name))
+    from IPython import embed
+
+    embed()
     model = create_model(args, load_head=True).cuda()
     state = torch.load(args.model_path, map_location="cpu")
     model.load_state_dict(state["model"], strict=False)

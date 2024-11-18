@@ -121,8 +121,15 @@ class MLDecoder(nn.Module):
         decoder_dropout = 0.1
         num_layers_decoder = 1
         dim_feedforward = 2048
-        layer_decode = TransformerDecoderLayerOptimal(d_model=decoder_embedding,
-                                                      dim_feedforward=dim_feedforward, dropout=decoder_dropout)
+        # layer_decode = TransformerDecoderLayerOptimal(d_model=decoder_embedding,
+        #                                               dim_feedforward=dim_feedforward, dropout=decoder_dropout)
+
+        layer_decode = nn.TransformerDecoderLayer(
+            d_model=decoder_embedding, 
+            nhead=8, 
+            dim_feedforward=dim_feedforward, 
+            dropout=decoder_dropout
+        )
         self.decoder = nn.TransformerDecoder(layer_decode, num_layers=num_layers_decoder)
         self.decoder.embed_standart = embed_standart
         self.decoder.query_embed = query_embed
